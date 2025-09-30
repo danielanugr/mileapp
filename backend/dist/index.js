@@ -8,28 +8,26 @@ const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
 const auth_1 = __importDefault(require("./routes/auth"));
+const tasks_1 = __importDefault(require("./routes/tasks"));
+const auth_2 = require("./middleware/auth");
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3001;
-// Middleware
 app.use((0, helmet_1.default)());
 app.use((0, cors_1.default)());
 app.use((0, morgan_1.default)('combined'));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
-// Routes
 app.use('/api/auth', auth_1.default);
-// Health check
+app.use('/api/tasks', auth_2.authenticateToken, tasks_1.default);
 app.get('/health', (req, res) => {
     res.json({ success: true, message: 'Server is running' });
 });
-// 404 handler
 app.use('*', (req, res) => {
     res.status(404).json({
         success: false,
         message: 'Route not found'
     });
 });
-// Error handler
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({
