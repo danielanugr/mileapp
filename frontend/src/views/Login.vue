@@ -83,7 +83,7 @@ const handleLogin = async () => {
   const success = await authStore.login(form.value)
 
   if (success) {
-    router.push('/dashboard')
+    router.push('/tasks')
   }
 }
 

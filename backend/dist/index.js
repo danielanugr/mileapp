@@ -22,7 +22,7 @@ app.use('/api/tasks', auth_2.authenticateToken, tasks_1.default);
 app.get('/health', (req, res) => {
     res.json({ success: true, message: 'Server is running' });
 });
-app.use('*', (req, res) => {
+app.all('*', (req, res) => {
     res.status(404).json({
         success: false,
         message: 'Route not found'

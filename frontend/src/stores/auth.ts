@@ -51,6 +51,15 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.removeItem('token')
   }
 
+  const checkAuth = () => {
+    const storedToken = localStorage.getItem('token')
+    if (!storedToken && token.value) {
+      token.value = null
+      user.value = null
+    }
+    return !!storedToken
+  }
+
   const clearError = () => {
     error.value = null
   }
@@ -63,6 +72,7 @@ export const useAuthStore = defineStore('auth', () => {
     isAuthenticated,
     login,
     logout,
+    checkAuth,
     clearError
   }
 })
