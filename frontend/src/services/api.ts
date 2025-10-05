@@ -2,7 +2,7 @@ import axios from 'axios'
 import router from '@/router'
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: 'https://mileapp-daniel-backend-9u7utqzep-danielanugrs-projects.vercel.app/api',
   headers: {
     'Content-Type': 'application/json',
   },
